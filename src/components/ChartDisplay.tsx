@@ -36,7 +36,6 @@ interface ChartDisplayProps {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     const date = new Date(label);
-    const value = payload[0].value; // This is the indexed value for display
     const actualValue = payload[0].payload.actualValue; // The true NAV value
     const annualizedReturnSinceInception = payload[0].payload.annualizedReturnSinceInception; // Annualized return from inception
     const indexedValue = payload[0].payload.indexedValue; // Indexed to selected period start

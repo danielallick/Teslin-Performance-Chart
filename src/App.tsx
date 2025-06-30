@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Header from './components/Header';
 import FileUpload from './components/FileUpload';
 import PeriodSelector from './components/PeriodSelector';
 import ResultsDisplay from './components/ResultsDisplay';
 import ChartDisplay from './components/ChartDisplay';
-import { DataPoint, ProcessedData, Period, CustomPeriod } from './types';
-import { processData } from './utils/dataProcessor';
+import { DataPoint, Period, CustomPeriod } from './types';
 import { useDataProcessor } from './hooks/useDataProcessor';
 
 function App() {

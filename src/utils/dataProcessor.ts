@@ -41,6 +41,8 @@ export function processData(
       endValue: null,
       returnValue: null,
       isAnnualized: false,
+      inceptionStartDate: null,
+      inceptionStartValue: null,
     };
   }
 
@@ -63,6 +65,8 @@ export function processData(
       endValue: null,
       returnValue: null,
       isAnnualized: false,
+      inceptionStartDate: null,
+      inceptionStartValue: null,
     };
   }
   
@@ -104,6 +108,8 @@ export function processData(
       endValue: null,
       returnValue: null,
       isAnnualized: false,
+      inceptionStartDate: null,
+      inceptionStartValue: null,
     };
   }
   
@@ -155,7 +161,11 @@ export function processData(
     returnValue = (endValue / startValue) - 1;
   }
   
-  // Step 9: Return all the processed data
+  // Step 9: Calculate inception data once for efficient chart processing
+  const inceptionStartDate = sortedData[0].date;
+  const inceptionStartValue = sortedData[0].value;
+
+  // Step 10: Return all the processed data
   return {
     filteredData,      // Data points for the selected period (for the chart)
     startDate: closestStartDate,  // Actual start date found in data
@@ -164,5 +174,7 @@ export function processData(
     endValue,          // Investment value at end date
     returnValue,       // Calculated return (simple or annualized)
     isAnnualized,      // Whether the return is annualized
+    inceptionStartDate, // Very first date in dataset (for chart calculations)
+    inceptionStartValue, // Very first value in dataset (for chart calculations)
   };
 }

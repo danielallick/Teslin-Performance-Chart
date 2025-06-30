@@ -24,7 +24,9 @@ function App() {
     startValue,
     endValue,
     returnValue,
-    isAnnualized
+    isAnnualized,
+    inceptionStartDate,
+    inceptionStartValue
   } = useDataProcessor(data, selectedPeriod, customPeriod);
 
   // Handle data upload
@@ -92,7 +94,8 @@ function App() {
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">Performance Chart</h2>
                 <ChartDisplay 
                   data={processedData} 
-                  fullDataset={data}
+                  inceptionStartDate={inceptionStartDate}
+                  inceptionStartValue={inceptionStartValue}
                 />
               </section>
             </>

@@ -35,6 +35,8 @@ export function useDataProcessor(
     endValue: null,        // Portfolio/investment value at end date
     returnValue: null,     // Calculated return (simple or annualized)
     isAnnualized: false,   // Whether the return is annualized (CAGR) or simple
+    inceptionStartDate: null, // Very first date in dataset
+    inceptionStartValue: null, // Very first value in dataset
   });
 
   // Process data whenever the input data or selected period changes
@@ -57,5 +59,7 @@ export function useDataProcessor(
     endValue: processedResult.endValue,           // End value for display
     returnValue: processedResult.returnValue,     // Calculated return for display
     isAnnualized: processedResult.isAnnualized,   // Whether return is annualized
+    inceptionStartDate: processedResult.inceptionStartDate, // Inception date for charts
+    inceptionStartValue: processedResult.inceptionStartValue, // Inception value for charts
   };
 }

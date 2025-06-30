@@ -16,7 +16,8 @@ import { calculateYearFrac } from '../utils/dateUtils';
 
 interface ChartDisplayProps {
   data: DataPoint[];
-  fullDataset: DataPoint[];
+  inceptionStartDate: Date | null;
+  inceptionStartValue: number | null;
 }
 
 /**
@@ -105,9 +106,10 @@ const CustomTooltip = ({ active, payload, label }: any) => {
  * 
  * @param {Object} props - Component props
  * @param {DataPoint[]} props.data - Array of date-value pairs for the selected period
- * @param {DataPoint[]} props.fullDataset - Complete dataset from Excel file (for inception calculations)
+ * @param {Date|null} props.inceptionStartDate - Pre-calculated inception start date
+ * @param {number|null} props.inceptionStartValue - Pre-calculated inception start value
  */
-const ChartDisplay: React.FC<ChartDisplayProps> = ({ data, fullDataset }) => {
+const ChartDisplay: React.FC<ChartDisplayProps> = ({ data, inceptionStartDate, inceptionStartValue }) => {
   // Show message if no data is available
   if (!data || data.length === 0) {
     return (
@@ -121,11 +123,15 @@ const ChartDisplay: React.FC<ChartDisplayProps> = ({ data, fullDataset }) => {
   // This will be our reference point (shown as 100 on the chart)
   const selectedPeriodStartValue = data[0].value;
   
-  // Step 2: Get true inception values from the full dataset
-  // Sort the full dataset to ensure we get the very first data point
-  const sortedFullDataset = [...fullDataset].sort((a, b) => a.date.getTime() - b.date.getTime());
-  const inceptionStartValue = sortedFullDataset[0].value; // Very first value from Excel
-  const inceptionStartDate = sortedFullDataset[0].date; // Very first date from Excel
+  // Step 2: Use pre-calculated inception values (optimization)
+  // If inception data is not available, fall back to calculating from fullDataset
+  if (!inceptionStartDate || !inceptionStartValue) {
+    return (
+      <div className="p-8 bg-gray-50 rounded-md text-gray-500 text-center">
+        Inception data not available.
+      </div>
+    );
+  }
   
   // Step 3: Transform the data for the chart
   // For each point, we calculate:

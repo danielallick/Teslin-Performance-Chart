@@ -13,6 +13,9 @@ export interface ProcessedData {
   endValue: number | null;
   returnValue: number | null;
   isAnnualized: boolean;
+  // Inception data for efficient chart calculations
+  inceptionStartDate: Date | null;
+  inceptionStartValue: number | null;
 }
 
 // Available period options
